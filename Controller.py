@@ -54,13 +54,37 @@ class ControllerCategoria:
             for i in x:
                 arq.write(i.categoria)
                 arq.writelines('\n')
+                
+        def mostrarCategoria(self):
+            categorias = DaoCategoria.ler()
+            if len(categorias) == 0:
+                 print('Categoria vazia')
+            else:
+                for i in categorias:
+                    print('Categoria {}'.format(i.categoria))
+
+class ControllerEstoque:
+    def cadastrarProduto(self, nome, preco,categoria, quantidade):      #parametros da models
+        x = DaoEstoque.ler()
+        y = DaoCategoria.ler()
+        h = list(filter(lambda x: y.categoria == categoria, y))
+        est = list(filter(lambda x: x.produto.nome == nome, x))
+
+        if len(h) > 0:
+            if len(est) == 0:
+                produto = Produtos(nome, preco, categoria)
+                DaoEstoque.salvar(produto, quantidade)
+                print('Produto cadastrado com sucesso')
+            else:
+                print('Produto já cadastrado em estoque')
+
+
+        else:
+            print('Categoria inexistente')
 
 
 
 
 
-
-a = ControllerCategoria()
-a.removerCategoria('frios')
 
 
