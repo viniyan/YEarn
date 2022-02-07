@@ -41,8 +41,8 @@ class ControllerCategoria:
 
         if len(cat) > 0:
             cat1 = list(filter(lambda x: x.categoria == categoriaAlterada, x))
-            if len(cat1) == 0:
-                x = list(map(lambda x: Categoria(categoriaAlterada) if (x.categoria == categoriaAlterar) else [x], x))
+            if len(cat) == 0:
+                x = list(map(lambda x: Categoria(categoriaAlterada) if (x.categoria == categoriaAlterar) else [x], x))     #Categoria vira categoriaAlterada se x.categoria == categoriaAlterar
 
             else:
                 print('O nome já existe')
@@ -50,19 +50,22 @@ class ControllerCategoria:
         else:
             print('A categoria que deseja alterar nâo existe')
 
+        #Para salvar na memória persistente
+
         with open('categoria.txt', 'w') as arq:
             for i in x:
-                arq.write(i.categoria)
+                arq.writelines(i.categoria)
                 arq.writelines('\n')
-                
-        def mostrarCategoria(self):
-            categorias = DaoCategoria.ler()
-            if len(categorias) == 0:
-                 print('Categoria vazia')
-            else:
-                for i in categorias:
-                    print('Categoria {}'.format(i.categoria))
 
+
+    def mostrarCategoria(self):
+        categorias = DaoCategoria.ler()
+        if len(categorias) == 0:
+            print('Categoria vazia')
+        else:
+            for i in categorias:
+                print('Categoria {}'.format(i.categoria))
+#TODO: daora né
 class ControllerEstoque:
     def cadastrarProduto(self, nome, preco,categoria, quantidade):      #parametros da models
         x = DaoEstoque.ler()
@@ -81,7 +84,27 @@ class ControllerEstoque:
 
         else:
             print('Categoria inexistente')
-            
+
+
+class ControllerEstoque:
+    def cadastrarProduto(self, nome, preco,categoria: Categoria, quantidade):      #parametros da models
+        x = DaoEstoque.ler()
+        y = DaoCategoria.ler()
+        h = list(filter(lambda x: y.categoria == categoria, y))
+        est = list(filter(lambda x: x.produto.nome == nome, x))
+
+        if len(h) > 0:
+            if len(est) == 0:
+                produto = Produtos(nome, preco, categoria)
+                DaoEstoque.salvar(produto, quantidade)
+                print('Produto cadastrado com sucesso')
+            else:
+                print('Produto já cadastrado em estoque')
+
+
+        else:
+            print('Categoria inexistente')
+
     def removerProduto(self, nome):
         x = DaoEstoque.ler()
         #o produto existe?
@@ -171,46 +194,40 @@ class ControllerVenda:
 
                 temp.append([Produtos(i.produto.nome, i.produto.preco, i.produto.categoria), i.quantidade])    #dentro de cada posicao da lista, existe outra lista, sendo a 1 posicao o produto (que possui categoria, preco etc)  e a 2 a quantidade
 
-                arq = open('estoque.txt', 'w')
-                arq.write('')
+            arq = open('estoque.txt', 'w')
+            arq.write('')
 
-                for i in temp:
-                    with open('estoque.txt', 'a') as arq:
-                        arq.writelines(i[0].nome + '|' + i[0].preco +'|'+ i[0].categoria + '|' + str(i[1]))
-                        arq.writelines('\n')
+            for i in temp:
+                with open('estoque.txt', 'a') as arq:
+                    arq.writelines(i.produto.nome + '|' + i.produto.preco +'|'+ i.produto.categoria + '|' + str(i.quantidade))
+                    arq.writelines('\n')
 
-                if existe == False:
-                    return 1
-                elif not quantidade:
-                    return 2
-                else:
-                    return 3, valorCompra
+            if existe == False:
+                return 1
+
+            elif not quantidade:
+                return 2
+            else:
+                return 3, valorCompra
 
         def relatorioProdutos(self):
             vendas = DaoVenda.ler()
+
             produtos = []
             for i in vendas:
-                nome = i.itensVendidos.nome
-                quantidade = i.quantidadeVendida
+                nome = i[0]
+                quantidade = i[5]
                 tamanho = list(filter(lambda x: x['produto'] == nome, produtos))     #ao adicionar a venda de um produto que ja foi vendido antes, esse filtro permite verificar se existe uma venda desse produto
                 if len(tamanho) > 0:    #se existe, altera a posicao, somando a quantidade anterior à quantidade atual
-                    produtos = list(map(lambda x:{'produto': nome, 'quantidade': quantidade + x['quantidade']} if (x['produto'] == nome) else (x), produtos))
+                    produtos = list(map(lambda x:{'produto': nome, 'quantidade': int(quantidade) + int(x['quantidade'])} if (x['produto'] == nome) else (x), produtos))
 
                 else:    #se nao existe, cria a posicao dentro da lista
-                    produtos.append({'produto': nome, 'quantidade': quantidade})
+                    produtos.append({'produto': nome, 'quantidade': int(quantidade)})
 
-                ordenado = sorted(produtos, key=lambda k: k['quantidade'], reverse = True)
-                print('Esses são os produtos mais vendidos')
-                a = 1
-                for i in ordenado:
-                    print('==========Produto {} =========='.format(a))
-                    print('Produto: {}'.format(i['produto']),'\n'  
-                          'Quantidade: {}'.format(i['quantidade']),'\n')
-        
-
-
-
-
-
-
-
+            ordenado = sorted(produtos, key=lambda k: k['quantidade'], reverse = True) #ordenar os produtos em ordem decrescente
+            print('Esses são os produtos mais vendidos')
+            a = 1
+            for i in ordenado:
+                print('==========Produto {} =========='.format(a))
+                print('Produto: {}'.format(i['produto']),'\n'  
+                      'Quantidade: {}'.format(i['quantidade']),'\n')
