@@ -231,3 +231,26 @@ class ControllerVenda:
                 print('==========Produto {} =========='.format(a))
                 print('Produto: {}'.format(i['produto']),'\n'  
                       'Quantidade: {}'.format(i['quantidade']),'\n')
+                
+        def mostrarVenda(self, dataInicio, dataTermino):
+            vendas = DaoVenda.ler()
+            dataInicio1 = datetime.strptime(dataInicio, '%d/%m/%Y')
+            dataTermino1 = datetime.strptime(dataInicio, '%d/%m/%Y')
+            #vendas num determinado período:
+            vendasSelecionadas = list(filter(lambda x: datetime.strptime(x.data, '%d/%m/%Y') #convertemos formato string em formato data
+                                              >= dataInicio1 and datetime.strptime(x.data, '%d/%m/%Y') <= dataTermino1, vendas)) #passamos como parametro a lista gerada pelo método DaoVenda.ler(), ue esta armazenada na variável vendas
+            cont = 1         #contagem de vendas
+            total = 0        #contagem do valor das vendas
+            for i in vendasSelecionadas:
+                print(f'==========Venda [{cont}]==========)
+                print(f'Nome: {i.itensVendidos.nome}\n''
+                      f'Categoria: {i.itensVendidos.categoria}\n'
+                      f'Data: {i.data}\n'
+                      f'Quantidade: {i.quantidadeVendida}\n'
+                      f'Cliente: {i.comprador}\n'
+                      f'Vendedor: {i.vendedor}\n')
+               total == int(i.itensVendidos.preco) * int(i.quantidadeVendida)
+               cont += 1
+
+        print(f'Total Vendido: {total})
+
