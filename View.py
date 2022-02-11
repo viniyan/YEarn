@@ -17,7 +17,6 @@ if __name__ == '__main__':                         #essa condicao serve para que
                           'Digite 4 para acessar ( Cliente )\n'
                           'Digite 5 para acessar ( Funcionario )\n'
                           'Digite 6 para acessar ( Vendas )\n'
-                          'Digite 7 para ver os produtos mais vendidos\n'
                           'Digite 8 para sair\n'))
 
         if local == 1:
@@ -55,15 +54,21 @@ if __name__ == '__main__':                         #essa condicao serve para que
                                     'Digite 5 para sair\n'))
 
                 if decidir == 1:
-                    produto = input('Digite o produto que deseja cadastrar\n')
-                    cat.cadastrarProduto(produto)
+                    nome = input('Digite o nome do produto que deseja cadastrar\n')
+                    preco = int(input('Digite o valor do produto que deseja cadastrar'))
+                    categoria = input('Digite a categoria do produto que deseja cadastrar')
+                    quantidade = int(input('Digite a quantidade do produto que deseja cadastrar'))
+                    cat.cadastrarProduto(nome, preco, categoria, quantidade)
                 elif decidir == 2:
-                    produto = input('Digite o produto que deseja remover\n')
-                    cat.removerProduto(produto)
+                    nome = input('Digite o nome do produto que deseja remover\n')
+                    cat.removerProduto(nome)
                 elif decidir == 3:
-                    produto = input('Digite o produto que deseja alterar\n')
-                    novoProduto = input('Digite o nome para o qual deseja alterar\n')
-                    cat.alterarProduto(produto, novoProduto)
+                    nomeAntes = input('Digite o produto que deseja alterar\n')
+                    nomeDepois = input('Digite o nome para o qual deseja alterar\n')
+                    novoPreco = float(input('Digite o preço deste produto'))
+                    novaQuantidade = int(input('Digite a quantidade deste produto'))
+                    novaCategoria = input('Digite a categoria deste produto')
+                    cat.alterarProduto(nomeAntes, nomeDepois, novoPreco, novaQuantidade, novaCategoria)
                 elif decidir == 4:
                     produto = input('Estes são os produtos em estoque:\n')
                     cat.mostrarEstoque()
@@ -80,15 +85,21 @@ if __name__ == '__main__':                         #essa condicao serve para que
                                     'Digite 5 para sair\n'))
 
                 if decidir == 1:
-                    fornecedor = input('Digite o fornecedor que deseja cadastrar\n')
-                    cat.cadastrarFornecedor(fornecedor)
+                    nome = input('Digite o nome do fornecedor que deseja cadastrar\n')
+                    cnpj = input('Digite o cnpj do fornecedor que deseja cadastrar')
+                    telefone = input('Digite o telefone do fornecedor')
+                    categoria = input('Digite a categoria do fornecedor')
+                    cat.cadastrarFornecedor(nome, cnpj, telefone, categoria)
                 elif decidir == 2:
-                    fornecedor = input('Digite o fornecedor que deseja remover\n')
+                    nome = input('Digite o fornecedor que deseja remover\n')
                     cat.removerFornecedor(fornecedor)
                 elif decidir == 3:
-                    fornecedor = input('Digite o fornecedor que deseja alterar\n')
-                    novoFornecedor = input('Digite o nome para o qual deseja alterar\n')
-                    cat.alterarFornecedor(fornecedor, novoFornecedor)
+                    nomeAntes = input('Digite o fornecedor que deseja alterar\n')
+                    nomeDepois = input('Digite o nome para o qual deseja alterar\n')
+                    novoCnpj = input('Digite o cnpj do fornecedor')
+                    novoTelefone= input('Digite o telefone do fornecedor')
+                    novaCategoria = input('Digite a categoria do fornecedor')
+                    cat.alterarFornecedor(nomeAntes, nomeDepois, novoCnpj, novoTelefone, novaCategoria)
                 elif decidir == 4:
                     fornecedor = input('Estes são os fornecedores cadastrados:\n')
                     cat.mostrarFornecedores()
@@ -105,15 +116,22 @@ if __name__ == '__main__':                         #essa condicao serve para que
                                     'Digite 5 para sair\n'))
 
                 if decidir == 1:
-                    cliente = input('Digite o cliente que deseja cadastrar\n')
-                    cat.cadastrarCliente(cliente)
+                    nome = input('Digite o nome do cliente que deseja cadastrar\n')
+                    cpf = input('Digite o cpf do cliente que deseja cadastrar')
+                    email = input('Digite o email do cliente que deseja cadastrar')
+                    endereco = input('Digite o endereço do cliente que deseja cadastrar')
+                    cat.cadastrarCliente(nome, cpf, email, endereco)
                 elif decidir == 2:
-                    cliente = input('Digite o cliente que deseja remover\n')
-                    cat.removerCliente(cliente)
+                    nome = input('Digite o cliente que deseja remover\n')
+                    cat.removerCliente(nome)
                 elif decidir == 3:
-                    cliente = input('Digite o cliente que deseja alterar\n')
-                    novoCliente = input('Digite o nome para o qual deseja alterar\n')
-                    cat.alterarCliente(cliente, novoCliente)
+                    nomeAntes = input('Digite o cliente que deseja alterar\n')
+                    nomeDepis = input('Digite o nome para o qual deseja alterar\n')
+                    novoTelefone = input('Digite o telefone do cliente')
+                    novoCpf = input('Digite o cpf do cliente')
+                    novoEndereco = input('Digite o endereço do cliente')
+                    novoEmail = input('Digite o e-mail do cliente')
+                    cat.alterarCliente(nomeAntes, nomeDepois, novoTelefone, novoCpf, novoEndereco, novoEmail)
                 elif decidir == 4:
                     cliente = input('Estes são os clientes cadastrados:\n')
                     cat.mostrarClientes()
@@ -130,15 +148,28 @@ if __name__ == '__main__':                         #essa condicao serve para que
                                     'Digite 5 para sair\n'))
 
                 if decidir == 1:
-                    func = input('Digite o funcionário que deseja cadastrar (clt, nome do funcionário, telefone, cpf, email, endereco)\n')
-                    cat.cadastrarFuncionario(func)
+                    nome = input('Digite o nome do funcionário que deseja cadastrar \n')
+                    clt = input('Digite o número da carteira de trabalho')
+                    telefone = input('Digite o funcionário que deseja alterar \n')
+                    nomeAntes = input('Digite o nome atual do fute o telefone')
+                    cpf = input('Digite o cpf')
+                    email = input('Digite o email')
+                    endereco = input('Digite o endereco')
+                    cat.cadastrarFuncionario(nome, clt, telefone, cpf, email, endereco)
                 elif decidir == 2:
                     func = input('Digite o cpf e nome do funcionário que deseja remover\n')
                     cat.removerFuncionario(func)
                 elif decidir == 3:
-                    func = input('Digite o funcionário que deseja alterar (CPFALTERAR, CPFALTERADO, cltAlterar, cltAlterado, nomeAlterar, nomeAlterado, telefoneAlterar, telefoneAlterado, emailAlterar, emailAlterado, enderecoAlterar, enderecoAlterado)\n')
-                    novoFunc = input('Digite os dados para os quais deseja alterar\n')
-                    cat.alterarCliente(func, novoFunc)
+                    nomeAntes = input('Digite o nome atual do funcionário')
+                    nomeDepois = input('Digite o nome pretendido do funcionário')
+                    telefoneAntes = input('Digite o telefone atual do funcionário')
+                    telefoneDepois = input('Digite o telefone pretendido do funcionário')
+                    emailAntes = input('Digite o email atual do funcionário')
+                    emailDepois = input('Digite o email pretendido do funcionário')
+                    enderecoAntes = input('Digite o endereço atual do funcionário')
+                    enderecoDepois = input('Digite o endereço pretendido do funcionário')
+
+                    cat.alterarFuncionario(nomeAntes, nomeDepois,telefoneAntes, telefonedepois, emailAntes, emailDepois, enderecoAntes, enderecoDepois)
                 elif decidir == 4:
                     cliente = input('Estes são os clientes cadastrados:\n')
                     cat.mostrarFuncionarios()
@@ -148,25 +179,25 @@ if __name__ == '__main__':                         #essa condicao serve para que
         if local == 6:
             cat = Controller.ControllerVenda()
             while True:
-                decidir = int(input('Digite 1 para cadastrar uma venda'
-                                    'Digite 2 para remover uma venda\n'
-                                    'Digite 3 para alterar uma venda\n'
-                                    'Digite 4 para ver as vendas cadastradas\n'
-                                    'Digite 5 para sair\n'))
-
+                decidir = int(input('Digite 1 para cadastrar uma venda\n'
+                                    'Digite 2 para ver os produtos mais vendidos\n'
+                                    'Digite 3 para ver as vendas cadastradas\n'
+                                    'Digite 4 para sair\n'))
+#TODO: criar método na controllerVenda para possibilitar a remoção e alteração de uma venda
                 if decidir == 1:
-                    venda = input('Digite o funcionário que deseja cadastrar\n')
-                    cat.cadastrarVenda(venda)
+                    nomeProduto = input('Digite o nome do produto vendido que deseja cadastrar\n')
+                    vendedor = input('Digite o nome do vendedor \n')
+                    comprador = input('Digite o nome do comprador\n')
+                    quantidadeVendida = input('Digite a quantidade vendida de cada produto\n')
+                    cat.cadastrarVenda(nomeProduto, vendedor, comprador, quantidadeVendida)
                 elif decidir == 2:
-                    func = input('Digite o func que deseja remover\n')
-                    cat.remover(func)
+                    venda = print('Esses são os produtos mais vendidos:\n')
+                    cat.relatorioProdutos()
                 elif decidir == 3:
-                    func = input('Digite o funcionário que deseja alterar\n')
-                    novoFunc = input('Digite o nome para o qual deseja alterar\n')
-                    cat.alterarCliente(func, novoFunc)
-                elif decidir == 4:
-                    cliente = input('Estes são os clientes cadastrados:\n')
-                    cat.mostrarFuncionarios()
+                    func = print('Essas são as vendas cadastradas\n')
+                    dataInicio = input('Digite uma data de início no formato dd/mm/aaaa')
+                    dataTermino = input('Digite uma data de início no formato dd/mm/aaaa')
+                    cat.mostrarVenda(dataInicio, dataTermino)
                 else:
                     break
 
