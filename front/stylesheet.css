@@ -1,0 +1,49 @@
+body{
+    background-color: blueviolet;
+    margin: 0;
+}
+
+.card
+{
+    background-color: white;
+    border-radius: 10%;
+    text-align: center;
+    padding: 4%;
+    margin: 5%;
+    font-family: 'roboto','sans-serif';
+    font-size: x-large;
+    box-shadow: 0.3125rem 0.3125rem 0rem #888888;
+
+}
+
+.card strong{
+    font-size: xx-large;
+}
+
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+header{
+    margin: 0;
+    padding: 0.5%;
+    background-color: blueviolet;
+    text-align: right;
+}
+
+header a {
+    color: white;
+    margin-right: 2%;
+
+}
+
+h1{
+    color: white;
+    font-size: xxx-large;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 5%;
+}
