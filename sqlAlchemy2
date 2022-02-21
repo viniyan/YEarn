@@ -1,0 +1,75 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import or_
+from ORM import Pessoa
+
+def retornaSession():
+    USUARIO = 'root'
+    SENHA = ''
+    HOST = 'localhost'
+    DB = 'aulapythonfull'
+    PORT = '3306'
+    CONNECTION = f'mysql+pymysql://{USUARIO}:{SENHA}@{HOST}:{PORT}/{DB}'
+
+    engine = create_engine(CONNECTION, echo = True)
+    Session = sessionmaker(bind = engine)
+    return Session()
+
+
+    class Pessoa(Base):
+        __tablename__ = 'Pessoa'
+        id = Column(Integer, primary_key= True)
+        nome = Column(String(50))
+        usuario = Column(String(20))
+        senha = Column(String(10))
+
+    Base.metadata.create_all(engine)
+
+session = retornaSession()
+sesh = retornaSession()
+
+x = Pessoa(nome='caio', usuario='caio', senha='1234')
+y = Pessoa(nome='vinicius', usuario='viniyan', senha='345')
+z = Pessoa(nome='vi', usuario='vi', senha='345')
+
+#sesh.add(z)     #envia para a session
+#session.add_all([x,y])   #envia mais de 1 valor para a session
+#sesh.rollback() #remove todas as alteracoes da session
+#sesh.commit()   #envia para a engine que altera o banco
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# para consultar tabelas
+#x = session.query(Pessoa)     mostra o SQL
+#x = session.query(Pessoa).all()     #1- nome da tabela, que retorna uma lista com cada instancia de Pessoa e sua localização na memória, que é uma linha da tabela
+#print(x[0])  #retorna a posição desejada, em formato de memória
+#print(x[0].id) #retorna a posição desejada da coluna desejada no mesmo formato que esta na tabela (string, int etc)
+
+#for i in x:
+    #print(i.id)   #retorna todas as posições da coluna desejada
+
+#x = session.query(Pessoa).filter(Pessoa.nome == 'caio').all()
+#for i in x:
+    #print(i.id)    #retorna todos os valores da coluna que se aplicam à condição
+
+#x = session.query(Pessoa).filter_by(nome='caio', usuario='marcos').all()
+#for i in x:
+    #print(i.id) #retorna todos os valores da coluna que se aplicam às condições
+
+#x = session.query(Pessoa).filter(or_(Pessoa.nome == 'caio', Pessoa.usuario == 'marcos')).all()  #nesse caso, a alteração é feita com uma condicional "ou" ao invés de "e"
+#for i in x:
+    #print(i.id)
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#session2 = retornaSession()
+
+#x = session2.query(Pessoa).filter(Pessoa.id == 3).all()
+#x[0].nome = 'caio'  #altera o valor desejado da coluna desejada de acordo com a condição
+#x[0].senha = '567'  #altera o valor desejado da coluna desejada de acordo com a condição
+
+#session2.commit()
+
+#------------------------------------------------------------------------------------------------------------
+
+#session3 = retornaSession()
+#x = session3.query(Pessoa).filter(Pessoa.id == 3).delete()   #deleta os valores de acordo com a condição
+
+#session3.commit()
