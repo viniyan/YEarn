@@ -1,0 +1,34 @@
+rom sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+USUARIO = 'root'
+SENHA = ''
+HOST = 'localhost'
+DB = 'aulapythonfull'
+PORT = '3306'
+CONNECTION = f'mysql+pymysql://{USUARIO}:{SENHA}@{HOST}:{PORT}/{DB}'    #Estabelce conexão ao banco de dados
+
+engine = create_engine(CONNECTION, echo = True)
+Session = sessionmaker(bind = engine)    #cria uma engine para a sessão
+session = Session()      #cria uma sessão. Podemos ter mais de 1 sessão.
+Base = declarative_base()      #importa os códigos SQL
+
+
+class Pessoa(Base):
+    __tablename__ = 'Pessoa'
+    id = Column(Integer, primary_key= True)
+    nome = Column(String(50))
+    usuario = Column(String(20))
+    senha = Column(String(10))
+
+Base.metadata.create_all(engine)   #cria uma tabela
+
+class Produtos(Base):
+    __tablename__ = 'Produtos'
+    id = Column(Integer, primary_key= True)
+    nome = Column(String(50))
+    usuario = Column(String(20))
+    senha = Column(String(10))
+
+Base.metadata.create_all(engine)
