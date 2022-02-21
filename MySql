@@ -1,0 +1,62 @@
+import pymysql.cursors
+
+connection = pymysql.connect(host='localhost',
+                             user='root',
+                             password='',
+                             port=3306,
+                             db= 'aulapythonfull',
+                             charset= 'utf8mb4',
+                             cursorclass= pymysql.cursors.DictCursor)    #conexao com o DB
+def criaTabela(nomeTabela):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f'create table {nomeTabela} (nome varchar(50))')
+        print('Tabela criada com sucesso')
+    except Exception as e:
+        print(f'Ocorreu um erro {e}')
+
+def removeTabela(nomeTabela):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f'drop table {nomeTabela}')
+        print('Tabela removida com sucesso')
+    except Exception as e:
+        print(f'Ocorreu um erro {e}')
+
+def insereTabela(nome):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"INSERT INTO teste values ('{nome}')")
+        print('Valor inserido com sucesso')
+    except Exception as e:
+        print(f'Ocorreu um erro {e}')
+
+def extraiTabela(nomeTabela):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"SELECT * FROM {nomeTabela}")
+            resultado = cursor.fetchall()    #traz todas as linhas do DB
+            print(resultado)
+    except Exception as e:
+        print(f'Ocorreu um erro {e}')
+
+def atualizaTabela(tabela, coluna, valorAntes, valorDepois):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"UPDATE {tabela} SET {coluna} = '{valorDepois}' WHERE {coluna} = '{valorAntes}' ")
+        print('Atualização efetuada com sucesso')
+    except Exception as e:
+        print(f'Ocorreu um erro {e}')
+
+def deletaTabela(tabela, coluna, valor):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"DELETE FROM {tabela} WHERE {coluna} = '{valor}' ")
+        print('Delete efetuado com sucesso')
+    except Exception as e:
+        print(f'Ocorreu um erro {e}')
+
+deletaTabela('teste', 'nome', 'vinicius')
+
+
+connection.close()
