@@ -240,7 +240,7 @@ class ControllerVenda:
         def mostrarVenda(self, dataInicio, dataTermino):
             vendas = DaoVenda.ler()
             dataInicio1 = datetime.strptime(dataInicio, '%d/%m/%Y')
-            dataTermino1 = datetime.strptime(dataInicio, '%d/%m/%Y')
+            dataTermino1 = datetime.strptime(dataTermino, '%d/%m/%Y')
             # vendas num determinado período:
             vendasSelecionadas = list(
                 filter(lambda x: datetime.strptime(x.data, '%d/%m/%Y')  # convertemos formato string em formato data
