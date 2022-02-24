@@ -2,6 +2,8 @@ from Models import Categoria, Produtos, Estoque, Venda, Fornecedor, Pessoa, Func
 from Dao import DaoCategoria, DaoVenda, DaoEstoque, DaoFornecedor, DaoPessoa, DaoFuncionario
 from datetime import datetime
 
+
+
 class ControllerCategoria:
     def cadastrarCategoria(self, novaCategoria):
         existe = False
